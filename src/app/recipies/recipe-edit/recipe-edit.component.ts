@@ -1,25 +1,20 @@
+import { Subscription } from 'rxjs';
 import { Recipe } from './../recipe-list/recipe.model';
-import { Component, OnInit } from '@angular/core';
-import {
-  FormArray,
-  FormControl,
-  FormGroup,
-  NgForm,
-  Validators,
-} from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { RecipeService } from '../recipe.service';
-import { Ingredient } from 'src/app/shared/ingredient.modal';
 
 @Component({
   selector: 'app-recipe-edit',
   templateUrl: './recipe-edit.component.html',
   styleUrls: ['./recipe-edit.component.css'],
 })
-export class RecipeEditComponent implements OnInit {
+export class RecipeEditComponent implements OnInit, OnDestroy {
   id!: number;
   editmode = false;
   recipeForm!: FormGroup;
+  subscription!: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -79,6 +74,11 @@ export class RecipeEditComponent implements OnInit {
     );
   }
 
+  onDeleteIngredient(index: number) {
+    const ingredients = <FormArray>this.recipeForm.get('ingredients');
+    ingredients?.removeAt(index);
+  }
+
   onSubmit() {
     const newRecipe = new Recipe(
       this.recipeForm.value['name'],
@@ -96,5 +96,9 @@ export class RecipeEditComponent implements OnInit {
 
   onCancel() {
     this.router.navigate(['../'], { relativeTo: this.route });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

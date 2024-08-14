@@ -8,9 +8,10 @@
   <div class="col-10">
     <ul class="list-group">
       <a
-        class="list-group-item"
+        class="list-group-item list-group-item-action"
         *ngFor="let ingredient of ingredients; let i = index"
-        (click)="onEdit(ingredient)"
+        (click)="onEdit(i)"
+        style="cursor: pointer"
       >
         {{ ingredient.name }} ({{ ingredient.amount }})
       </a>

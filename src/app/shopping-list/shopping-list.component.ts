@@ -19,9 +19,7 @@ export class ShoppingListComponent implements OnInit {
     });
   }
 
-  onEdit(ingredient: Ingredient) {
-    this.ingredient = ingredient;
-    this.slService.edit = true;
-    console.log(ingredient);
+  onEdit(index: number) {
+    this.slService.startedEditing.next(index);
   }
 }
