@@ -12,3 +12,7 @@ border : 1px solid red;
   width: 50%;
   border-radius: 24px;
 }
+
+button{
+  min-width: 70px;
+}

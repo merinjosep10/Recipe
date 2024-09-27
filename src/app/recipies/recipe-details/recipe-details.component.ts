@@ -24,7 +24,7 @@ export class RecipeDetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscription = this.route.params.subscribe((params: Params) => {
-      this.id = +params['id'];
+      this.id = +params['id']; //COHESION
       this.recipe = this.recipeService.getRecipe(this.id);
     });
   }

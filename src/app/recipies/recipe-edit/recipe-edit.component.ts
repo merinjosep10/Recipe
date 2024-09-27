@@ -23,7 +23,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe((params: Params) => {
+    this.subscription = this.route.params.subscribe((params: Params) => {
       this.id = +params['id'];
       this.editmode = params['id'] != null;
       this.initForm();
@@ -34,6 +34,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     let recipeName = '';
     let recipeImage = '';
     let recipedesc = '';
+    let recipedesc2 = '';
     let recipeIngredients = new FormArray<FormGroup>([]);
 
     if (this.editmode) {
@@ -41,6 +42,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
       recipeName = recipe.name;
       recipeImage = recipe.imagePath;
       recipedesc = recipe.description;
+      recipedesc2 = recipe.description2;
       if (recipe['ingredients']) {
         for (let ingredient of recipe.ingredients) {
           recipeIngredients.push(
@@ -56,12 +58,12 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
       name: new FormControl(recipeName, Validators.required),
       image: new FormControl(recipeImage, Validators.required),
       desc: new FormControl(recipedesc, Validators.required),
+      desc2: new FormControl(recipedesc2, Validators.required),
       ingredients: recipeIngredients,
     });
   }
 
   get controls() {
-    // a getter!
     return (<FormArray>this.recipeForm.get('ingredients')).controls;
   }
 
@@ -83,6 +85,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     const newRecipe = new Recipe(
       this.recipeForm.value['name'],
       this.recipeForm.value['desc'],
+      this.recipeForm.value['desc2'],
       this.recipeForm.value['image'],
       this.recipeForm.value['ingredients']
     );
