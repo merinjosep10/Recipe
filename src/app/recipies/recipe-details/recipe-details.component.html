@@ -1,23 +1,13 @@
-<div class="row">
-  <div class="col-xs-12">
-    <img
-      src="{{ recipe.imagePath }}"
-      alt="{{ recipe.name }}"
-      class="img-responsive"
-    />
-  </div>
-</div>
-
 <div class="row nameAndButton">
-  <div class="col-xs-1">
+  <div class="col-9 col-xs-9">
     <h1>{{ recipe.name }}</h1>
   </div>
-  <div class="col-xs-1">
+  <div class="col-3 col-xs-3 d-flex float-right">
     <div class="btn-group">
       <div class="dropdown">
         <button
           type="button"
-          class="btn btn-primary dropdown-toggle"
+          class="btn btn-success dropdown-toggle"
           data-bs-toggle="dropdown"
         >
           Manage Recipe
@@ -51,11 +41,21 @@
 </div>
 
 <div class="row">
-  <div class="col-xs-12">{{ recipe.description }}</div>
+  <div class="col-6 col-xs-6">
+    <img
+      src="{{ recipe.imagePath }}"
+      alt="{{ recipe.name }}"
+      class="img-responsive"
+    />
+  </div>
+  <div class="col-6 col-xs-6 text-center py-5">
+    {{ recipe.description }}{{ recipe.description2 }}
+  </div>
 </div>
 
 <div class="row">
   <div class="col-xs-12 my-3">
+    <h4>Ingredients</h4>
     <ul class="list-group">
       <li class="list-group-item" *ngFor="let ingredient of recipe.ingredients">
         {{ ingredient.name }} - {{ ingredient.amount }}
